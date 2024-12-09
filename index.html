@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/main.css">
+  <title>Call Logs</title>
+</head>
+<body>
+  <section class="hero is-primary is-bold">
+    <div class="hero-body">
+      <h1 class="title">Call Logs</h1>
+    </div>
+  </section>
+  <form id="form" method="POST">
+    <!-- Date -->
+    <div class="field">
+      <label class="label">Date</label>
+      <div class="control">
+        <input class="input" type="text" readonly name="Date" id="date">
+      </div>
+    </div>
+
+    <!-- Time In -->
+    <div class="field">
+      <label class="label">Time In</label>
+      <div class="control">
+        <input class="input" type="text" readonly name="Time In" id="time-in">
+      </div>
+    </div>
+
+    <!-- Time Out -->
+    <div class="field">
+      <label class="label">Time Out</label>
+      <div class="control">
+        <input class="input" type="text" readonly name="Time Out" id="time-out">
+      </div>
+    </div>
+
+    <!-- Department -->
+    <div class="field">
+      <label class="label">Department</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Department" name="Department" id="department" required>
+      </div>
+    </div>
+
+    <!-- Caller Name -->
+    <div class="field">
+      <label class="label">Caller Name</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Your Client Name" name="Caller Name" id="client-name" required>
+      </div>
+    </div>
+
+    <!-- Caller Number -->
+    <div class="field">
+      <label class="label">Caller Number</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Enter caller's number" name="Caller Number" id="caller-number" required>
+      </div>
+    </div>
+
+    <!-- Call Concern -->
+    <div class="field">
+      <label class="label">Call Concern</label>
+      <div class="control">
+       <textarea class="textarea" placeholder="Describe the concern..." name="Call Concern" id="call-concern" rows="5" required></textarea>
+     </div>
+</div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-primary" type="submit" id="submit-button">Submit</button>
+      </div>
+      <div class="control">
+        <button class="button is-danger" type="reset" id="reset-button">Cancel</button>
+      </div>
+    </div>
+  </form>
+  <div id="message"></div>
+  <script src="assets/main.js"></script>
+</body>
+</html>
