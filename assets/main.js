@@ -67,3 +67,19 @@ document.getElementById("form").addEventListener("submit", function (e) {
       message.style.color = "red";
     });
 });
+
+// Function to calculate escalation time
+function calculateEscalationTime(timeIn, timeOut) {
+  const timeInDate = new Date(`1970-01-01T${timeIn}:00`);
+  const timeOutDate = new Date(`1970-01-01T${timeOut}:00`);
+
+  // Calculate the difference in milliseconds
+  const difference = timeOutDate - timeInDate;
+
+  // Convert milliseconds into minutes
+  const minutes = Math.floor(difference / 60000);
+  const seconds = Math.floor((difference % 60000) / 1000);
+
+  // Format and return the escalation time
+  return `${minutes}m ${seconds}s`;
+}
