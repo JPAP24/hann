@@ -46,7 +46,7 @@ document.getElementById("form").addEventListener("submit", function (e) {
   const formDataString = keyValuePairs.join("&");
 
   fetch(
-    "https://script.google.com/macros/s/AKfycbxXGpoLOw7BA_647KIG6eemVRFU0DaxzrtiJjFnVB8oJ3S-OJub5qDhXej6-3qSxpNiyQ/exec",
+    "https://script.google.com/macros/s/AKfycbyINoiIlqmT_bYdR_NHa6xfkKHXnMLGSJ2XxiJRs4leSJsVCLHFsRnfNMBlbLx7oIg6/exec",
     {
       method: "POST",
       body: formDataString,
