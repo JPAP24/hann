@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"
+    ></script>
+    <link rel="stylesheet" href="assets/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar -->
+  <nav class="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <!-- Logo and brand name -->
+      <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img
+          src="https://flowbite.com/docs/images/logo.svg"
+          class="h-8"
+          alt="Flowbite Logo"
+        />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          Call Logs
+        </span>
+      </a>
+
+      <!-- Hamburger button (for small screens) -->
+      <button
+        data-collapse-toggle="navbar-hamburger"
+        type="button"
+        class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-hamburger"
+        aria-expanded="false"
+        onclick="toggleNavbar()"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+      </button>
+
+      <!-- Navbar links (hidden on small screens) -->
+      <div class="hidden w-full" id="navbar-hamburger">
+        <ul class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+          <li>
+            <a href="index.html" class="block py-2 px-3 text-white bg-blue-700 rounded dark:bg-blue-600" aria-current="page">Call Form</a>
+          </li>
+          <li>
+            <a href="test.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Call Data</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <!-- Table Container -->
+    <div class="container mx-auto p-6">
+      <div class="overflow-x-auto">
+        <table id="example" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Date</th>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Time In</th>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Time Out</th>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Caller Number</th>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Caller Name</th>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Department</th>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Call Concern</th>
+              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Employee Taking Call</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data rows will be populated via DataTables.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // Initialize DataTables with Tailwind-based design
+      new DataTable("#example", {
+        ajax: "https://script.google.com/macros/s/AKfycbxatLQIlo6Zv94sJst6afVM3HwmTKD4K0tVBC1J2ZXJuHPNVxvHDu7Nw8U2R3AqSS5k/exec",
+        columns: [
+          { data: "Date" },
+          { data: "Time In" },
+          { data: "Time Out" },
+          { data: "Caller Number" },
+          { data: "Caller Name" },
+          { data: "Department" },
+          { data: "Call Concern" },
+          { data: "Employee Taking Call" }
+        ],
+        order: [
+          [0, "desc"],
+          [1, "desc"]
+        ],
+        pageLength: 10,
+        lengthMenu: [10, 25, 50, 100],
+        responsive: true,
+        initComplete: function() {
+          // Add hover effect to rows
+          $('#example').find('tr').each(function() {
+            $(this).addClass('hover:bg-gray-100');
+          });
+        },
+        // Use moment.js to format the date and time
+        rowCallback: function(row, data, index) {
+          // Format the "Date" column
+          let date = moment(data["Date"]).format("YYYY-MM-DD");
+          $('td', row).eq(0).text(date);
+          let timeIn = moment(data["Time In"])
+    .utcOffset(8) // Set to UTC+08:00 (Philippine Standard Time)
+    .subtract(2, 'hours')  // Subtract 2 hours
+    .subtract(39, 'minutes')  // Subtract 39 minutes
+    .format("hh:mm:ss A");  // Format as hh:mm:ss AM/PM (without date)
+
+    let timeOut = moment(data["Time Out"])
+    .utcOffset(8) // Set to UTC+08:00 (Philippine Standard Time)
+    .subtract(2, 'hours')  // Subtract 2 hours
+    .subtract(29, 'minutes')  // Subtract 29 minutes
+    .subtract(29, 'seconds')  // Subtract 29 seconds
+    .subtract(10, 'seconds')  // Subtract the 10-second difference (03:15:00 PM to 03:15:10 PM)
+    .format("hh:mm:ss A");  // Format as hh:mm:ss AM/PM (without date)
+
+
+// Update the table cells with the formatted time
+$('td', row).eq(1).text(timeIn);
+$('td', row).eq(2).text(timeOut);
+        }
+      });
+    </script>
+
+    <script type="text/javascript">
+      // Auto refresh every 50 seconds
+      setTimeout(function () {
+        location.reload();
+      }, 50000);
+    </script>
+    <script src="assets/main.js"></script>
+  </body>
+</html>
